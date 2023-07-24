@@ -5,17 +5,18 @@ services:
     build:
       context: ./docker
     image: phpdocker
-    container_name: pitzi-backend
+    container_name: fraud-api
     volumes:
       - ".:/var/www/html/"
     depends_on:
+      - mongo
       - composerinstall
     networks:
-      - pitzi_network
+      - fraud_network
 
   #nginx to hold all nginx server configs
   nginx:
-    container_name: pitzi-nginx
+    container_name: fraud-nginx
     build:
       context: ./docker/nginx # The path of the Dockerfile
     volumes:
@@ -28,17 +29,29 @@ services:
     depends_on:
       - php
     networks:
-      - pitzi_network
+      - fraud_network
+
+  #mongodb container
+  mongo:
+    image: mongo:4.4.2-bionic
+    container_name: fraud-database
+    restart: on-failure
+    ports:
+      - "27017:27017"
+    volumes:
+      - "./storage/db-data:/data/db"
+    networks:
+      - fraud_network
 
   composerinstall:
-    container_name: pitzi-composer-install
+    container_name: fraud-composer-install
     build:
         context: ./docker
     volumes:
       - ".:/var/www/html/"
     command: composer install
 
-#network to hold backend/nginx/mongo
+#network to hold api/nginx/mongo
 networks:
-  pitzi_network:
+  fraud_network:
     driver: bridge

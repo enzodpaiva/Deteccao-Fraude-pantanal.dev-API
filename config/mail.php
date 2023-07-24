@@ -15,8 +15,8 @@ return [
     'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
     'port' => env('MAIL_PORT', 587),
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'contato@vertexdigital.co'),
-        'name' => env('MAIL_FROM_NAME', 'Pitzi Seguros'),
+        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'name' => env('MAIL_FROM_NAME', 'Hello World'),
     ],
 
     'encryption' => env('MAIL_ENCRYPTION', 'tls'),
