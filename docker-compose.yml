@@ -1,0 +1,44 @@
+version: "3.7"
+services:
+  #php with all project needed extensios
+  php:
+    build:
+      context: ./docker
+    image: phpdocker
+    container_name: pitzi-backend
+    volumes:
+      - ".:/var/www/html/"
+    depends_on:
+      - composerinstall
+    networks:
+      - pitzi_network
+
+  #nginx to hold all nginx server configs
+  nginx:
+    container_name: pitzi-nginx
+    build:
+      context: ./docker/nginx # The path of the Dockerfile
+    volumes:
+    - "./public:/var/www/html/public"
+    environment:
+      NGINX_FPM_HOST: php
+      NGINX_ROOT: /var/www/html/public
+    ports:
+      - "8000:80"
+    depends_on:
+      - php
+    networks:
+      - pitzi_network
+
+  composerinstall:
+    container_name: pitzi-composer-install
+    build:
+        context: ./docker
+    volumes:
+      - ".:/var/www/html/"
+    command: composer install
+
+#network to hold backend/nginx/mongo
+networks:
+  pitzi_network:
+    driver: bridge
