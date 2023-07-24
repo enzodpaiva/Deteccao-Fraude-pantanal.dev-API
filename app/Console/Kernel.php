@@ -27,8 +27,5 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('partial')->everyFiveMinutes()->withoutOverlapping()->environments(['production']);
-        $schedule->command('VerifyDeviceInsuranceActive')->everyThirtyMinutes()->withoutOverlapping()->environments(['production']);
-
     }
 }

@@ -19,9 +19,9 @@ return new class extends Migration
 
             DB::table('userAuthApi')->insert(
                 array(
-                    'username' => 'landing_page',
+                    'username' => 'user_authenticate',
                     'password' => '',
-                    'apiToken' => '8c62d0a5e116e010c693ba3a34d3f529',
+                    'apiToken' => 'd796b7986144f8123eb4b95f7ce972f2',
                 )
             );
         });

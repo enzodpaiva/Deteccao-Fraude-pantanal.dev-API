@@ -11,7 +11,7 @@ class GuzzleHelper implements ClientHttpInterface
 
     public static function create(): PendingRequest
     {
-        $clientServiceConfig = config('apiServices.pitzi');
+        $clientServiceConfig = config('');
         $cliente = $clientServiceConfig['client'];
 
         $url = $cliente['base_uri'];
