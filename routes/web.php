@@ -21,6 +21,4 @@ $router->get('/favicon.ico', function () use ($router) {
     return;
 });
 
-require __DIR__ . '/bitrix_routes.php';
-require __DIR__ . '/sale_routes.php';
-require __DIR__ . '/product_routes.php';
+require __DIR__ . '/fraud_routes.php';
