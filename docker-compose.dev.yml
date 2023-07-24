@@ -1,0 +1,67 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .docker
+    container_name: Frauds-app
+    #entrypoint: dockerize -template ./.docker/app/.env:.env -template ./.docker/app/.env.testing:.env.testing -wait tcp://db:3306 -timeout 40s ./.docker/entrypoint.sh
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 40s ./.docker/entrypoint.sh
+    environment:
+      - _DB_HOST=db
+      - _DB_DATABASE=Frauds
+      - _DB_USERNAME=root
+      - _DB_PASSWORD=root
+      - _TEST_DB_DATABASE=Frauds_test
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - .:/var/www
+    networks:
+      - app-Frauds-network
+    depends_on:
+      - db
+      - redis
+
+  nginx:
+    build: .docker/nginx
+    container_name: Frauds-nginx
+    restart: always
+    tty: true
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www
+    networks:
+      - app-Frauds-network
+    depends_on:
+      - app
+
+  db:
+    build: ./.docker/mysql
+    container_name: Frauds-db
+    restart: always
+    tty: true
+    ports:
+      - "33007:3306"
+    volumes:
+      - ./.docker/dbdata:/var/lib/mysql
+      - ./.docker/mysql:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      #- MYSQL_USER=root
+      - MYSQL_DATABASE=Frauds
+    networks:
+      - app-Frauds-network
+
+
+  redis:
+    image: redis:alpine
+    container_name: Frauds-redis
+    expose:
+      - 6379
+    networks:
+      - app-Frauds-network
+
+networks:
+  app-Frauds-network:
+    driver: bridge
