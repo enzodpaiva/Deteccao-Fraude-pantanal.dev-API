@@ -11,16 +11,13 @@ class GuzzleHelper implements ClientHttpInterface
 
     public static function create(): PendingRequest
     {
-        $clientServiceConfig = config('');
+        $clientServiceConfig = config('apiServices.server');
         $cliente = $clientServiceConfig['client'];
 
         $url = $cliente['base_uri'];
-        $usuario = $cliente['usuario'];
-        $password = $cliente['password'];
 
         return Http::withHeaders(self::headers())
-            ->baseUrl($url)
-            ->withBasicAuth($usuario, $password);
+            ->baseUrl($url);
     }
 
     public static function get(string $uri, array $parameters = [])
