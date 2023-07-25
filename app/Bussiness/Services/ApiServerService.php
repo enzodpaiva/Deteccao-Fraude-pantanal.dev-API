@@ -4,6 +4,7 @@ namespace App\Bussiness\Services;
 
 use App\Exceptions\ApiLeadException;
 use Exception;
+use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 
 class ApiServerService
@@ -43,11 +44,6 @@ class ApiServerService
     public function sendRandomTransactionToServer(array $data = [])
     {
         try {
-
-            if (!$data) {
-                Log::error('Invalid data: ' . json_encode($data));
-                throw new InvalidArgumentException('data invalida: ' . json_encode($data), 400);
-            }
 
             return $this->apiServerIntegrationService->sendRandomTransaction($data);
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bussiness\Services\ApiServerService;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class FrontApiController extends Controller

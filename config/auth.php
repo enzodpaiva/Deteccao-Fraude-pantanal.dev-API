@@ -40,7 +40,7 @@ return [
         'landingpage' => [
             'driver' => 'landingpage',
             'authMethod' => 'authorization',
-            'user' => 'landing_page',
+            'user' => 'user_authenticate',
         ],
     ],
 
