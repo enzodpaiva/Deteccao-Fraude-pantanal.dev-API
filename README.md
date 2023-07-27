@@ -1,6 +1,6 @@
 <div style="display: flex; align-items: center;">
   <img src="public/data_wizard_logo.png" alt="Data Wizard Logo" width="100" height="100" align="left">
-  <h1>Data Wizard - Front-end</h1>
+  <h1>Data Wizard - API</h1>
 </div>
 
 <p align="center">
