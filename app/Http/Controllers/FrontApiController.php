@@ -20,9 +20,9 @@ class FrontApiController extends Controller
         $data = [];
         $response = $this->apiServerService->sendRandomTransactionToServer($data);
 
-        return response()->json([
-            'data' => $response['data'],
-        ], $response['status']);
+        return response()->json(
+            $response['data'], $response['status']
+        );
     }
 
     public function sendAnalyseSample(Request $request)
@@ -30,9 +30,10 @@ class FrontApiController extends Controller
         $data = $request->toArray();
         $response = $this->apiServerService->sendSampleViewToServer($data);
 
-        return response()->json([
-            'data' => $response['data'],
-        ], $response['status']);
+        return response()->json(
+            $response['data'],
+            $response['status']
+        );
     }
 
     public function sendStoreFraud(Request $request)
@@ -40,8 +41,9 @@ class FrontApiController extends Controller
         $data = $request->toArray();
         $response = $this->apiServerService->sendStoreFraudToServer($data);
 
-        return response()->json([
-            'data' => $response['data'],
-        ], $response['status']);
+        return response()->json(
+            $response['data'],
+            $response['status']
+        );
     }
 }
